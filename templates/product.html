@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }} - Giá tốt nhất{% endblock title %}
+
+{% block og_meta %}
+<meta property="fb:app_id" content="1231797221427681" />
+<meta property="og:title" content="{{object.title}}" />
+<meta property="og:description" content="{{object.description}}" />
+<meta property="og:url" content="{{ absolute_url }}" />
+<meta property="og:image" content="{{ image_url }}" />
+<meta property="og:type" content="product" />
+
+{% endblock og_meta %}
+
+
+{% block content %}
+
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-5">
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <img src="{{ object.image.url }}" class="card-img-top" alt="">
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <!--Content-->
+        <div class="p-4">
+
+          <div class="mb-3">
+            <h1>
+              <strong>
+                <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.title }}
+                </a>
+              </strong>
+              <small class="badge purple mr-1">{{ object.get_category_display }}</small>
+            </h1>
+              
+          </div>
+
+          <p class="lead">
+            {% if object.discount_price %}
+            <span class="mr-1">
+              <del>${{ object.price }}</del>
+            </span>
+            <span><strong>${{ object.discount_price }}</strong></span>
+            {% else %}
+            <span>${{ object.price }}</span>
+            {% endif %}
+          </p>
+
+          <h2 class="lead font-weight-bold">Description</h2>
+
+          <p>{{ object.description|linebreaksbr }}</p>
+
+          {% comment %} <form class="d-flex justify-content-left">
+            <!-- Default input -->
+            <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+            <button class="btn btn-primary btn-md my-0 p" type="submit">
+              Add to cart
+              <i class="fas fa-shopping-cart ml-1"></i>
+            </button>
+
+          </form> {% endcomment %}
+          <div style="display: flex; justify-content: left; gap: 10px;">
+            <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+              Add to cart
+              <i class="fas fa-shopping-cart ml-1"></i>
+            </a>
+            <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
+              Remove from cart
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url }}" class="btn btn-danger btn-md my-0 p" target="_blank">
+              Share on Facebook
+            </a>
+          </div>
+          
+          
+          
+
+        </div>
+        <!--Content-->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+    <hr>
+
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 text-center">
+
+        <h4 class="my-4 h4">Additional information</h4>
+
+        <p>{{ object.add_information|linebreaksbr }}</p>
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+      {% for image in object.get_item_detail %}
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4">
+          <img src="{{ image.image.url }}" class="img-fluid" alt="Additional Image {{ forloop.counter }}">
+      </div>
+      <!--Grid column-->
+  {% endfor %}
+  
+    </div>
+    <!--Grid row-->
+
+  </div>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "{{ object.title}}",
+      "image": "{{ object.image.url }}",
+      "description": "{{ object.add_information }}",
+      "brand": {
+        "@type": "Brand",
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "{{ absolute_url }}",
+        "priceCurrency": "USD",
+        "price": "{{ object.price }}",
+        "availability": "https://schema.org/{% if product.is_in_stock %}InStock{% else %}OutOfStock{% endif %}",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    }
+    </script>
+    
+</main>
+
+{% endblock content %}

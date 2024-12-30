@@ -1,0 +1,118 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ecommerce_Project cho Thuong mai dien tu">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="{% static 'img/mdb-favicon.ico' %}">
+  <title>Ecommerce_Project </title>
+  <title>{% block head_title %}{% endblock %}</title>
+  {% block og_meta %}
+  
+  {% endblock og_meta %}
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+  
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK3NFRCBF7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DK3NFRCBF7');
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Ecommerce_Project",
+      "url": "http://127.0.0.1:8000/",
+      "logo": "https://example.com/static/images/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-234-5678-999",
+        "contactType": "Customer Service"
+      }
+    }
+    </script>
+    
+</head>
+
+{% include "navbar.html" %}
+
+<body>
+
+    <div class="mt-5 pt-4">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+
+    {% block content %}
+    {% endblock content %}
+
+    {% block extra_body %}
+    {% endblock %}
+
+    {% include "footer.html" %}
+    {% include "scripts.html" %}
+
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+          var alerts = document.querySelectorAll('.alert');
+          alerts.forEach(function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => alert.remove(), 150); // Xóa hẳn phần tử sau hiệu ứng
+          });
+        }, 3000); // Ẩn sau 3 giây
+      });
+    </script>
+    
+    {% comment %} chatbot {% endcomment %}
+    <script>!function(s,u,b,i,z){var o,t,r,y;s[i]||(s._sbzaccid=z,s[i]=function(){s[i].q.push(arguments)},s[i].q=[],s[i]("setAccount",z),r=["widget.subiz.net","storage.googleapis"+(t=".com"),"app.sbz.workers.dev",i+"a"+(o=function(k,t){var n=t<=6?5:o(k,t-1)+o(k,t-3);return k!==t?n:n.toString(32)})(20,20)+t,i+"b"+o(30,30)+t,i+"c"+o(40,40)+t],(y=function(k){var t,n;s._subiz_init_2094850928430||r[k]&&(t=u.createElement(b),n=u.getElementsByTagName(b)[0],t.async=1,t.src="https://"+r[k]+"/sbz/app.js?accid="+z,n.parentNode.insertBefore(t,n),setTimeout(y,2e3,k+1))})(0))}(window,document,"script","subiz", "acseqghtncqbaqkayjfv")</script>
+</body>
+</html>
